@@ -5,7 +5,7 @@ Build epub with javascript.
 ## Usage
 
 ```js
-import { EPUB } from 'epub-js'; // esm
+import { EPUB } from "epub-js"; // esm
 ```
 
 ```js
@@ -17,7 +17,7 @@ epub.title("My EPUB"); // <dc:title>
 epub.author("Me"); // Add author, <dc:creator>
 epub.publisher("Me"); // <dc:publisher>
 epub.category("education"); // <dc:type>
-epub.language("en"); // <dc:language> 
+epub.language("en"); // <dc:language>
 epub.textDirection("auto"); // <html dir="auto">
 epub.pageDirection("ltr"); // <spine page-progression-direction="ltr">
 epub.layout("pre-paginated"); // <meta property="rendition:layout">
@@ -26,7 +26,10 @@ epub.spread("auto"); // <meta property="rendition:spread">
 epub.flow("auto"); // <meta property="rendition:flow">
 epub.tag("tag3"); // Add tag, <dc:subject>
 epub.cover("data:image/jpeg;base64,/9j/4..."); // base64, image/jpeg
-epub.style("#toc li{ margin-top: 1rem; margin-bottom: 1rem; }", {title: "default", class: "default"}); // Add style, apply to all pages
+epub.style("#toc li{ margin-top: 1rem; margin-bottom: 1rem; }", {
+  title: "default",
+  class: "default",
+}); // Add style, apply to all pages
 epub.publishedAt(new Date()); // <dc:date>
 epub.modifiedAt(new Date()); // <meta property="dcterms:modified">
 
@@ -97,7 +100,7 @@ page.h6("Lorem ipsum...");
 page.p("Lorem ipsum...", { style: "margin-bottom: 1rem;" });
 page.span("Lorem ipsum...");
 page.a("Lorem ipsum...", { href: otherPage.getPath() });
-page.ol(true, { id: "ch1-list1"}); // Open ol
+page.ol(true, { id: "ch1-list1" }); // Open ol
 page.li("Lorem ipsum...");
 page.ol(false); // Close ol
 page.ul(true); // Open ul
@@ -125,12 +128,15 @@ page.valueOf();
 - Create a full-screen image page
 
 ```js
-epub.add()
-    .title(`Chapter 2`)
-    .style("img{ width: 100%; height: 100%; object-fit: contain; object-position: center center; }") 
-    .img(base64) // Add <img />
-    .nav() // Add this page to navigation
-    .exec(); // Save to epub
+epub
+  .add()
+  .title(`Chapter 2`)
+  .style(
+    "img{ width: 100%; height: 100%; object-fit: contain; object-position: center center; }",
+  )
+  .img(base64) // Add <img />
+  .nav() // Add this page to navigation
+  .exec(); // Save to epub
 ```
 
 - epub.toZip()
@@ -138,7 +144,7 @@ epub.add()
 ```js
 import fs from "node:fs";
 
-;(async function() {
+(async function () {
   const b64 = await epub.toZip(); // return base64
   writeFileSync(`${epub.data.title}.epub`, b64, { encoding: "base64" });
 })();
@@ -175,7 +181,7 @@ for (const file of epub.toArray()) {
     const filePath = path.join(OUTPUT_PATH, file.path);
     chkDirs(filePath, OUTPUT_PATH);
     writeFileSync(filePath, file.data, { encoding: file.encoding || "utf8" });
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
 }

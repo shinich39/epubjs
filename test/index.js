@@ -1,4 +1,4 @@
-import { EPUB } from "../src/index.js";
+import { EPUB } from "../index.js";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -33,42 +33,51 @@ const epub = new EPUB();
 
 const styles = [
   "#toc li{ margin-top: 1rem; margin-bottom: 1rem; }",
-  "img{ width: 100%; height: 100%; object-fit: contain; object-position: center center; }"
+  "img{ width: 100%; height: 100%; object-fit: contain; object-position: center center; }",
 ];
 
-epub.title("My EPUB")
-    .author("Me")
-    .language("en")
-    // .textDirection("rtl")
-    // .pageDirection("rtl")
-    .layout("pre-paginated") // reflowable, pre-paginated
-    // .orientation("auto") // auto, landscape, portrait
-    .spread("both") // auto, none, landscape, both
-    // .flow("auto") // auto, paginated, scrolled-continuous, scrolled-doc
-    .tag("1")
-    .tag("2")
-    .tag("3")
-    .style(styles.join("\n"), { class: "default", title: "default" })
-    .publishedAt(new Date())
-    .modifiedAt(new Date())
+epub
+  .title("My EPUB")
+  .author("Me")
+  .language("en")
+  // .textDirection("rtl")
+  // .pageDirection("rtl")
+  .layout("pre-paginated") // reflowable, pre-paginated
+  // .orientation("auto") // auto, landscape, portrait
+  .spread("both") // auto, none, landscape, both
+  // .flow("auto") // auto, paginated, scrolled-continuous, scrolled-doc
+  .tag("1")
+  .tag("2")
+  .tag("3")
+  .style(styles.join("\n"), { class: "default", title: "default" })
+  .publishedAt(new Date())
+  .modifiedAt(new Date());
 
 // Test audio
-const audio = epub.add()
-    .title("Audio test")
-    .nav()
-    .audio(fs.readFileSync(path.join(INPUT_PATH, "1.mp3"), { encoding: "base64" }), { controls: "controls" })
-    .exec();
+const audio = epub
+  .add()
+  .title("Audio test")
+  .nav()
+  .audio(
+    fs.readFileSync(path.join(INPUT_PATH, "1.mp3"), { encoding: "base64" }),
+    { controls: "controls" },
+  )
+  .exec();
 
 // Test video
-const video = epub.add()
-    .title("Video test")
-    .nav()
-    .video(fs.readFileSync(path.join(INPUT_PATH, "1.mp4"), { encoding: "base64" }), { controls: "controls" })
-    .exec();
+const video = epub
+  .add()
+  .title("Video test")
+  .nav()
+  .video(
+    fs.readFileSync(path.join(INPUT_PATH, "1.mp4"), { encoding: "base64" }),
+    { controls: "controls" },
+  )
+  .exec();
 
-console.log(epub.getCoverPath())
-console.log(epub.getNavPath())
-console.log(epub.getFilePath(video.getId()))
+console.log(epub.getCoverPath());
+console.log(epub.getNavPath());
+console.log(epub.getFilePath(video.getId()));
 // Test flow
 // let spread = ["left", "right"];
 // for (let i = 0; i < 1000; i++) {
@@ -104,8 +113,10 @@ console.log(epub.getFilePath(video.getId()))
 rmDir(OUTPUT_PATH);
 chkDir(OUTPUT_PATH);
 
-epub.toZip().then(function(c) {
-  fs.writeFileSync(path.join(OUTPUT_PATH, `${epub.data.title}.epub`), c, {encoding: "base64"});
+epub.toZip().then(function (c) {
+  fs.writeFileSync(path.join(OUTPUT_PATH, `${epub.data.title}.epub`), c, {
+    encoding: "base64",
+  });
 });
 
 // Test JSZip

@@ -2,11 +2,11 @@
   "name": "epub-js",
   "version": "1.0.0",
   "description": "Build epub with javascript.",
-  "main": "/dist/mjs.mjs",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "node ./test/index.js",
-    "pretty": "prettier ./src --write --config .prettierrc.js",
+    "pretty": "prettier . --write --config .prettierrc.js",
     "build": "rollup --config"
   },
   "keywords": [

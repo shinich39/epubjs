@@ -2,9 +2,9 @@ import pkg from "./package.json" assert { type: "json" };
 import fs from "node:fs";
 
 function camelize(str) {
-	return str.replace(/[_.-](\w|$)/g, function (_, x) {
-		return x.toUpperCase();
-	});
+  return str.replace(/[_.-](\w|$)/g, function (_, x) {
+    return x.toUpperCase();
+  });
 }
 
 const MODULE_NAME = pkg.name.replace(/\W/g, "-").replace(/-?js$/, "");
@@ -16,7 +16,7 @@ if (fs.existsSync("./dist")) {
 }
 
 export default {
-  input: "src/index.js",
+  input: "index.js",
   output: [
     {
       file: `dist/${MODULE_NAME}.cjs`,
