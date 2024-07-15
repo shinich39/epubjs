@@ -1,4 +1,4 @@
-import { EPUB } from "../index.js";
+import { EPUB } from "../dist/epub.mjs";
 import path from "node:path";
 import fs from "node:fs";
 
